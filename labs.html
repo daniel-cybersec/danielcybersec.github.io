@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF_8">
+        <title>Labs | Daniel CyberSec</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <header>
+            <h1>Security Labs & Write-Ups</h1>
+            <p>Blue Team Detection & Incident Response Practice</p>
+        </header>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="skills.html">Skills</a>
+            <a href="labs.html">Labs</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <section class="hero">
+
+            <!-- LAB 1-->
+            <div class="lab_card">
+                <h2>Lab 1: Detecting Brute Force Login Attempts</h2>
+
+                <p><strong>Category:</strong> Incident Detection</p>
+                <p><strong>Tools Used:</strong> Linux Logs, SSH, Kali 
+            Linux</p>
+
+            <p>
+                This lab demonstrates how brute force SSH Login 
+            attempts 
+                can be detected through log analysis and how 
+            Defensive 
+                actions can be applied to reduce risks.
+            </p>
+
+            <h3>Objectives</h3>
+            <p>
+                To identify multiple failed authentication Attempts 
+                and analyze indicators of a brute force attack.
+            </p>
+
+            <h4>Lab Setup</h4>
+            <ul>
+                <li>Target System: Linux machine with SSH enabled</li>
+                <li>Attack Simulation: Kali Linux</li>
+                <li>Log Source: <code>/var/log/auth.log</code></li>
+            </ul>
+            <h5>Detection & Analysis</h5>
+            <ul>
+                <li>Repeated <code>Failed password</code> log entries detected</li>
+                <img src="images/labs/lab1-auth-log-failed.jpg"
+                    alt="Authentication log showing repeated failed SSH login attempts "
+                    style="width: 100%; max-width:700px; margin:15px 0"
+                    class="lab-image">
+                    <p class="lab-caption">
+                        Figure 1:Repeated failed SSH authentication attempts observed in auth.log with time correlation.
+                    </p>
+                    <p>
+                        Analysis of the authentication logs revealed multiple 
+                        failed SSH login attempts occurring within short time 
+                        intervals from a single source IP address. Attempts 
+                        include both invalid and valid usernames, indicating 
+                        username enumeration behavior consistent with brute-force 
+                        activity. Timestamp correlation confirmed automated or 
+                        repeated login attempts.
+                    </p>
+                <li>Single source IP identified</li>
+                <li>High login attempt frequency within a short time window</li>
+            </ul>
+
+            <h6>Indicators of Compromise (IOCs)</h6>
+            <ul>
+                <li>Suspicious source IP address</li>
+                <li>Repeated authentication failures</li>
+                <li>Abnormal login attempt patterns</li>
+            </ul>
+
+            <h6>Defensive Response</h6>
+            <ul>
+                <li>Blocked the malicious IP address</li>
+                <li>Enabled SSH rate-limiting</li>
+                <li>Recommend Fail2Ban for automated protection</li>
+
+            </ul>
+
+            <h6>Lessons Learned</h6>
+            <p>
+                Log monitoring plays a critical role in detecting 
+                brute force attacks early, allowing defenders 
+                to prevent unauthorized access.
+            </p>
+            <h3>Mitigation & Recommendations</h3>
+            <ul>
+                <li>Implement account lockout policies after multiple 
+            failed login attempts.</li>
+                <li>Restrict SSh access using IP allowlists where 
+            possible.</li>
+                <li>Monitor authentication logs using a centralized
+            logging or SIEM solution.</li>
+            </ul>
+            </div>
+
+            <!-- LAB 2 -->
+            <div class="Lab-card">
+                <h2>Lab 2: Detecting Port Scanning activity</h2>
+
+                <p><strong>Category:</strong> Network Monitoring</p>
+                <p><strong>Tools Used:</strong>Network Logs, Wireshark</p>
+
+                <p>
+                    This lab focuses on identifying suspicious port scanning 
+                    behavior by analyzing network traffic patterns. 
+                </p>
+
+                <h3>Objectives</h3>
+                <p>
+                    To detect abnormal connection attempts that 
+                indicate 
+                reconnaissance activity.
+                </p>
+
+                <h3>Detection & Analysis</h3>
+                <ul>
+                    <li>Multiple connection attempts across different ports</li>
+                    <li>Short time intervals between requests</li>
+                    <li>Unusual scanning patterns identified</li>
+                </ul>
+
+                <h4>Defensive Actions</h4>
+                <ul>
+                    <li>Logged scanning activity</li>
+                    <li>Blocked suspicious IP addresses</li>
+                    <li>Recommend IDS/IPS deployment</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>© 2026 Daniel CyberSec</p>
+        </footer>
+
+    </body>
+</html>
